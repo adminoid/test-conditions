@@ -1,72 +1,53 @@
-<template>
-  <div class="container">
-    <div>
-      <logo />
-      <h1 class="title">
-        conditions-page
-      </h1>
-      <h2 class="subtitle">
-        My glorious Nuxt.js project
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
-    </div>
-  </div>
+<template lang="pug">
+  .container
+    h3 Add poll
+    .conditions(v-if="!isEmpty")
+      condition(v-for="(condition, index) in conditions" :key="index" :condition-data="condition")
+        p {{ condition.name }}
+    b-button(variant="outline-primary" @click="addCondition") Add condition
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-
+import Condition from '~/components/Condition.vue'
 export default {
   components: {
-    Logo
+    Condition
+  },
+  data () {
+    return {
+      conditions: [
+        {
+          name: 'condition 1',
+          type: 'type',
+          subConditions: ['one']
+        },
+        {
+          name: 'condition 2',
+          type: 'age',
+          subConditions: ['one', 'two']
+        },
+        {
+          name: 'condition 3',
+          type: 'status',
+          subConditions: ['one', 'two', 'three']
+        },
+        {
+          name: 'condition 3',
+          type: 'none',
+          subConditions: []
+        }
+      ]
+    }
+  },
+  computed: {
+    isEmpty () {
+      return !this.conditions.length
+    }
+  },
+  methods: {
+    addCondition () {
+      return true
+    }
   }
 }
 </script>
-
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
-</style>
