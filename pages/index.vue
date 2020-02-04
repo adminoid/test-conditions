@@ -4,6 +4,7 @@
     .conditions(v-if="!isEmpty")
       condition(v-for="(condition, index) in conditions" :key="index" :condition-data="condition")
         p {{ condition.name }}
+    .no-conditions(v-else) Not yet
     b-button(variant="outline-primary" @click="addCondition") Add condition
 </template>
 
@@ -18,13 +19,13 @@ export default {
       conditions: [
         {
           name: 'condition 1',
-          type: 'type',
-          subConditions: ['one']
+          type: 'age',
+          subConditions: []
         },
         {
           name: 'condition 2',
-          type: 'age',
-          subConditions: ['one', 'two']
+          type: 'type',
+          subConditions: []
         },
         {
           name: 'condition 3',

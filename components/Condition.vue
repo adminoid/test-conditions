@@ -2,7 +2,8 @@
   div.condition
     b-form-input(v-model="conditionData.name" placeholder="Enter name")
     .sub-conditions(v-if="hasSubConditions")
-      component(:is="subComponentName" v-for="(item, index) in conditionData.subConditions" :key="index" :subData="item")
+      component(:is="subComponentName" v-for="(item, index) in conditionData.subConditions" :key="index" :subData="item" @delete-sub-condition="deleteSub")
+    .no-sub-conditions(v-else) Not yet
     b-button(variant="outline-primary" @click="addSubCondition") Add sub condition
 </template>
 <script>
@@ -40,7 +41,13 @@ export default {
   },
   methods: {
     addSubCondition () {
-      return true
+      this.conditionData.subConditions.push({
+        type: this.conditionData.type,
+        date: {}
+      })
+    },
+    deleteSub (e) {
+      this.conditionData.subConditions.splice(e.idxToDelete, 1)
     }
   }
 }
