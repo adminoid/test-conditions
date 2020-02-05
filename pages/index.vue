@@ -2,7 +2,7 @@
   .container
     h3 Add poll
     .conditions(v-if="!isEmpty")
-      condition(v-for="(condition, index) in conditions" :key="index" :condition-data="condition")
+      condition(v-for="(condition, index) in conditions" :key="index" :condition-data="condition" @erase-condition="deleteCondition")
         p {{ condition.name }}
     .no-conditions(v-else) Not yet
     b-button(variant="outline-primary" @click="addCondition") Add condition
@@ -28,10 +28,6 @@ export default {
         {
           type: 'status',
           subConditions: []
-        },
-        {
-          type: 'none',
-          subConditions: []
         }
       ]
     }
@@ -43,7 +39,13 @@ export default {
   },
   methods: {
     addCondition () {
-      return true
+      this.conditions.push({
+        type: 'none',
+        subConditions: []
+      })
+    },
+    deleteCondition (e) {
+      this.conditions.splice(e.idxToDelete, 1)
     }
   }
 }

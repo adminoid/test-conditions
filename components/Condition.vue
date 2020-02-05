@@ -4,7 +4,10 @@
     .sub-conditions(v-if="hasSubConditions")
       component(:is="subComponentName" v-for="(item, index) in conditionData.subConditions" :key="index" :subData="item" @delete-sub-condition="deleteSub" class="sub-condition")
     .sub-conditions(v-else) Not yet
-    b-button(:disabled="canAddSubCondition" variant="outline-primary" @click="addSubCondition") Add sub condition
+    .buttons
+      b-button(:disabled="canAddSubCondition" variant="outline-primary" @click="addSubCondition") Add sub condition
+      b-button(variant="outline-danger" @click="eraseCondition") Delete condition
+
 </template>
 <script>
 import { upperFirst } from 'lodash'
@@ -70,15 +73,21 @@ export default {
     },
     deleteSub (e) {
       this.conditionData.subConditions.splice(e.idxToDelete, 1)
+    },
+    eraseCondition () {
+      this.$emit('erase-condition', { idxToDelete: this.$vnode.key })
     }
   }
 }
 </script>
-<style lang="sass">
+<style lang="sass" scoped>
   .select-condition, .condition, .sub-condition, .sub-conditions
     margin-bottom: 10px
   .condition
     border: 1px solid #000
     padding: 10px
     border-radius: .25rem
+  .buttons
+    display: flex
+    justify-content: space-between
 </style>
