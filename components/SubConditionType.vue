@@ -6,14 +6,15 @@
       b-button(variant="danger" @click="erase")
         b-icon-trash
 </template>
+
 <script>
-import { BIcon, BIconTrash } from 'bootstrap-vue'
+import SCMixin from '~/mixins/subConditionMixin'
+
 export default {
   name: 'SubConditionType',
-  components: {
-    BIcon,
-    BIconTrash
-  },
+
+  mixins: [SCMixin],
+
   data () {
     return {
       selected: null,
@@ -24,14 +25,10 @@ export default {
         { value: 'copper', text: 'Copper' }
       ]
     }
-  },
-  methods: {
-    erase () {
-      this.$emit('delete-sub-condition', { idToDelete: this.$vnode.key })
-    }
   }
 }
 </script>
+
 <style lang="sass" scoped>
   .inputs
     margin-right: 10px

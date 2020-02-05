@@ -10,12 +10,11 @@
 
 </template>
 <script>
-import { BIcon, BIconTrash } from 'bootstrap-vue'
+import SCMixin from '~/mixins/subConditionMixin'
+
 export default {
-  components: {
-    BIcon,
-    BIconTrash
-  },
+  mixins: [SCMixin],
+
   props: {
     subData: {
       type: Object,
@@ -24,6 +23,7 @@ export default {
       }
     }
   },
+
   methods: {
     erase () {
       this.$emit('delete-sub-condition', { idToDelete: this.$vnode.key })
@@ -31,6 +31,7 @@ export default {
   }
 }
 </script>
+
 <style lang="sass" scoped>
   .inputs
     margin-right: 10px

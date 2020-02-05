@@ -7,13 +7,13 @@
         b-icon-trash
 </template>
 <script>
-import { BIcon, BIconTrash } from 'bootstrap-vue'
+import SCMixin from '~/mixins/subConditionMixin'
+
 export default {
   name: 'SubConditionStatus',
-  components: {
-    BIcon,
-    BIconTrash
-  },
+
+  mixins: [SCMixin],
+
   data () {
     return {
       selected: null,
