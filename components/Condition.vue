@@ -36,11 +36,13 @@ const attributesDependsOnType = {
 
 export default {
   name: 'Condition',
+
   components: {
     'SubConditionAge': () => import('~/components/SubConditionAge'),
     'SubConditionType': () => import('~/components/SubConditionType'),
     'SubConditionStatus': () => import('~/components/SubConditionStatus')
   },
+
   props: {
     conditionData: {
       type: Object,
@@ -53,6 +55,7 @@ export default {
       }
     }
   },
+
   data () {
     return {
       options: [
@@ -63,6 +66,7 @@ export default {
       ]
     }
   },
+
   computed: {
     hasSubConditions () {
       return !!this.conditionData.subConditions.length && this.conditionData.type !== 'none'
@@ -78,12 +82,13 @@ export default {
       return this.conditionData.type === 'none'
     },
     addSubConditionButtonText () {
-      return `Add ${attributesDependsOnType[this.conditionData.type].addSubBtn}`
+      return (this.conditionData.type === 'none') ? `Select condition first` : `Add ${attributesDependsOnType[this.conditionData.type].addSubBtn}`
     },
     backgroundColor () {
       return attributesDependsOnType[this.conditionData.type].color
     }
   },
+
   watch: {
     'conditionData.type' (newValue) {
       if (newValue === 'none') {
@@ -95,6 +100,7 @@ export default {
       }
     }
   },
+
   methods: {
     addSubCondition () {
       const id = (this.conditionData.subConditions.length > 0) ? parseInt(maxBy(this.conditionData.subConditions, 'id').id) + 1 : 0
