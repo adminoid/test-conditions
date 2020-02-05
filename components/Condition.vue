@@ -89,9 +89,8 @@ export default {
       if (newValue === 'none') {
         this.conditionData.subConditions = []
       } else {
-        const id = (this.conditionData.subConditions.length > 0) ? parseInt(maxBy(this.conditionData.subConditions, 'id').id) + 1 : 0
         this.conditionData.subConditions = [{
-          id
+          id: 0
         }]
       }
     }
@@ -107,11 +106,11 @@ export default {
     },
     deleteSub (e) {
       this.conditionData.subConditions = filter(this.conditionData.subConditions, (item) => {
-        return item.id !== e.idxToDelete
+        return item.id !== e.idToDelete
       })
     },
     eraseCondition () {
-      this.$emit('erase-condition', { idxToDelete: this.$vnode.key })
+      this.$emit('erase-condition', { idToDelete: this.$vnode.key })
     }
   }
 }

@@ -56,7 +56,7 @@ export default {
     },
     deleteCondition (e) {
       this.conditions = filter(this.conditions, (item) => {
-        return item.id !== e.idxToDelete
+        return item.id !== e.idToDelete
       })
     }
   }

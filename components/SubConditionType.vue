@@ -27,7 +27,7 @@ export default {
   },
   methods: {
     erase () {
-      this.$emit('delete-sub-condition', { idxToDelete: this.$vnode.key })
+      this.$emit('delete-sub-condition', { idToDelete: this.$vnode.key })
     }
   }
 }
