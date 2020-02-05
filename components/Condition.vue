@@ -6,7 +6,7 @@
       component(:is="subComponentName" v-for="item in conditionData.subConditions" :key="item.id" :subData="item" @delete-sub-condition="deleteSub" class="sub-condition")
     .sub-conditions(v-else) Not yet
     .buttons
-      b-button(:disabled="canAddSubCondition" variant="outline-primary" @click="addSubCondition") {{ addSubConditionButtonText }}
+      b-button(:disabled="disabledAddSubCondition" variant="outline-primary" @click="addSubCondition") {{ addSubConditionButtonText }}
       b-button(variant="outline-danger" @click="eraseCondition") Delete condition
 
 </template>
@@ -78,7 +78,7 @@ export default {
     subComponentName () {
       return `SubCondition${upperFirst(this.conditionData.type)}`
     },
-    canAddSubCondition () {
+    disabledAddSubCondition () {
       return this.conditionData.type === 'none'
     },
     addSubConditionButtonText () {
