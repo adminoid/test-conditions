@@ -1,7 +1,8 @@
 <template lang="pug">
   div
     b-form(inline)
-      b-form-select(v-model="selected" :options="options")
+      .inputs
+        b-form-select(v-model="selected" :options="options")
       b-button(variant="danger" @click="erase")
         b-icon-trash
 </template>
@@ -31,3 +32,7 @@ export default {
   }
 }
 </script>
+<style lang="sass" scoped>
+  .inputs
+    margin-right: 10px
+</style>

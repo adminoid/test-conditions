@@ -1,9 +1,9 @@
 <template lang="pug">
   div.condition
-    b-form-select(v-model="conditionData.type" :options="options")
+    b-form-select(v-model="conditionData.type" :options="options" class="col-5 select-condition")
     .sub-conditions(v-if="hasSubConditions")
-      component(:is="subComponentName" v-for="(item, index) in conditionData.subConditions" :key="index" :subData="item" @delete-sub-condition="deleteSub")
-    .no-sub-conditions(v-else) Not yet
+      component(:is="subComponentName" v-for="(item, index) in conditionData.subConditions" :key="index" :subData="item" @delete-sub-condition="deleteSub" class="sub-condition")
+    .sub-conditions(v-else) Not yet
     b-button(:disabled="canAddSubCondition" variant="outline-primary" @click="addSubCondition") Add sub condition
 </template>
 <script>
@@ -74,3 +74,11 @@ export default {
   }
 }
 </script>
+<style lang="sass">
+  .select-condition, .condition, .sub-condition, .sub-conditions
+    margin-bottom: 10px
+  .condition
+    border: 1px solid #000
+    padding: 10px
+    border-radius: .25rem
+</style>

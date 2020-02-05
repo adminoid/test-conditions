@@ -48,3 +48,7 @@ export default {
   }
 }
 </script>
+<style lang="sass" scoped>
+  .container
+    padding: 20px
+</style>
