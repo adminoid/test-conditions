@@ -1,16 +1,37 @@
 <template lang="pug">
-  div.condition
+  div.condition(:style="{ background: backgroundColor }")
     b-form-select(v-model="conditionData.type" :options="options" class="col-5 select-condition")
     .sub-conditions(v-if="hasSubConditions")
       component(:is="subComponentName" v-for="(item, index) in conditionData.subConditions" :key="index" :subData="item" @delete-sub-condition="deleteSub" class="sub-condition")
     .sub-conditions(v-else) Not yet
     .buttons
-      b-button(:disabled="canAddSubCondition" variant="outline-primary" @click="addSubCondition") Add sub condition
+      b-button(:disabled="canAddSubCondition" variant="outline-primary" @click="addSubCondition") {{ addSubConditionButtonText }}
       b-button(variant="outline-danger" @click="eraseCondition") Delete condition
 
 </template>
 <script>
+
 import { upperFirst } from 'lodash'
+
+const attributesDependsOnType = {
+  none: {
+    color: '#FAFAFA',
+    addSubBtn: 'none'
+  },
+  age: {
+    color: '#FFFCF5',
+    addSubBtn: 'range'
+  },
+  type: {
+    color: '#F8FAFF',
+    addSubBtn: 'type'
+  },
+  status: {
+    color: '#FAFFF8',
+    addSubBtn: 'status'
+  }
+}
+
 export default {
   name: 'Condition',
   components: {
@@ -53,6 +74,12 @@ export default {
     },
     canAddSubCondition () {
       return this.conditionData.type === 'none'
+    },
+    addSubConditionButtonText () {
+      return `Add ${attributesDependsOnType[this.conditionData.type].addSubBtn}`
+    },
+    backgroundColor () {
+      return attributesDependsOnType[this.conditionData.type].color
     }
   },
   watch: {
