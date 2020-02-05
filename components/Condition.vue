@@ -1,6 +1,6 @@
 <template lang="pug">
   div.condition
-    b-form-input(v-model="conditionData.name" placeholder="Enter name")
+    b-form-select(v-model="conditionData.type" :options="options")
     .sub-conditions(v-if="hasSubConditions")
       component(:is="subComponentName" v-for="(item, index) in conditionData.subConditions" :key="index" :subData="item" @delete-sub-condition="deleteSub")
     .no-sub-conditions(v-else) Not yet
@@ -27,6 +27,16 @@ export default {
       }
     }
   },
+  data () {
+    return {
+      options: [
+        { value: 'none', text: 'Select condition' },
+        { value: 'age', text: 'Age' },
+        { value: 'type', text: 'Card type' },
+        { value: 'status', text: 'Card status' }
+      ]
+    }
+  },
   computed: {
     hasSubConditions () {
       return !!this.conditionData.subConditions.length && this.conditionData.type !== 'none'
@@ -37,6 +47,16 @@ export default {
      */
     subComponentName () {
       return `SubCondition${upperFirst(this.conditionData.type)}`
+    }
+  },
+  watch: {
+    'conditionData.type' (newValue, oldValue) {
+      // console.log(newValue, oldValue)
+      if (newValue === 'none') {
+        this.conditionData.subConditions = []
+      } else {
+        this.conditionData.subConditions = [{}]
+      }
     }
   },
   methods: {

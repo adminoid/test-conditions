@@ -18,22 +18,18 @@ export default {
     return {
       conditions: [
         {
-          name: 'condition 1',
           type: 'age',
           subConditions: []
         },
         {
-          name: 'condition 2',
           type: 'type',
           subConditions: []
         },
         {
-          name: 'condition 3',
           type: 'status',
-          subConditions: ['one', 'two', 'three']
+          subConditions: []
         },
         {
-          name: 'condition 3',
           type: 'none',
           subConditions: []
         }
