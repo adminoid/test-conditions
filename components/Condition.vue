@@ -4,7 +4,7 @@
     .sub-conditions(v-if="hasSubConditions")
       component(:is="subComponentName" v-for="(item, index) in conditionData.subConditions" :key="index" :subData="item" @delete-sub-condition="deleteSub")
     .no-sub-conditions(v-else) Not yet
-    b-button(variant="outline-primary" @click="addSubCondition") Add sub condition
+    b-button(:disabled="canAddSubCondition" variant="outline-primary" @click="addSubCondition") Add sub condition
 </template>
 <script>
 import { upperFirst } from 'lodash'
@@ -47,11 +47,13 @@ export default {
      */
     subComponentName () {
       return `SubCondition${upperFirst(this.conditionData.type)}`
+    },
+    canAddSubCondition () {
+      return this.conditionData.type === 'none'
     }
   },
   watch: {
-    'conditionData.type' (newValue, oldValue) {
-      // console.log(newValue, oldValue)
+    'conditionData.type' (newValue) {
       if (newValue === 'none') {
         this.conditionData.subConditions = []
       } else {
